@@ -1,39 +1,62 @@
 import Product from "../models/Product.js";
 
 
-export const updateProduct = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
-    const { name, image, description, pdf } = req.body;
-    const product = await Product.findById(req.params.id);
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Xəta baş verdi", error });
+  }
+};
 
+
+export const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ message: "Məhsul tapılmadı" });
     }
-
-    product.name = name || product.name;
-    product.image = image || product.image;
-    product.description = description || product.description;
-    product.pdf = pdf || product.pdf;
-
-    const updatedProduct = await product.save();
-    res.json(updatedProduct);
+    res.json(product);
   } catch (error) {
-    res.status(500).json({ message: "Məhsul yenilənərkən xəta baş verdi", error: error.message });
+    res.status(500).json({ message: "Xəta baş verdi", error });
+  }
+};
+
+
+export const createProduct = async (req, res) => {
+  try {
+    const { name, image, description, category, pdf } = req.body;
+    const newProduct = new Product({ name, image, description, category, pdf });
+    await newProduct.save();
+    res.status(201).json({ message: "Məhsul əlavə olundu", product: newProduct });
+  } catch (error) {
+    res.status(500).json({ message: "Xəta baş verdi", error });
+  }
+};
+
+
+export const updateProduct = async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Məhsul tapılmadı" });
+    }
+    res.json({ message: "Məhsul yeniləndi", product: updatedProduct });
+  } catch (error) {
+    res.status(500).json({ message: "Xəta baş verdi", error });
   }
 };
 
 
 export const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-
-    if (!product) {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) {
       return res.status(404).json({ message: "Məhsul tapılmadı" });
     }
-
-    await product.deleteOne();
-    res.json({ message: "Məhsul uğurla silindi" });
+    res.json({ message: "Məhsul silindi" });
   } catch (error) {
-    res.status(500).json({ message: "Məhsul silinərkən xəta baş verdi", error: error.message });
+    res.status(500).json({ message: "Xəta baş verdi", error });
   }
 };
