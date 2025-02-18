@@ -1,5 +1,5 @@
 import express from "express"
-import { login, logout, register, sendVerifyOtp, verifyEmail } from "../controllers/userController.js"
+import { isAuthenticated, login, logout, register, sendVerifyOtp, verifyEmail } from "../controllers/userController.js"
 import userAuth from "../middleware/userAuth.js";
 
 const userRouter = express.Router();
@@ -10,5 +10,6 @@ userRouter.post('/login', login)
 userRouter.post('/logout', logout)
 userRouter.post('/send-verify-otp', userAuth, sendVerifyOtp)
 userRouter.post('/verify-account', userAuth, verifyEmail)
+userRouter.post('/is-auth', userAuth, isAuthenticated)
 
 export default userRouter
