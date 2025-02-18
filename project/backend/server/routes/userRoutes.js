@@ -1,15 +1,9 @@
 import express from "express"
-import { isAuthenticated, login, logout, register, sendVerifyOtp, verifyEmail } from "../controllers/userController.js"
-import userAuth from "../middleware/userAuth.js";
+import userAuth from "../middleware/userAuth.js"
+import { getUserData } from "../controllers/userController.js"
 
-const userRouter = express.Router();
+const userRouter = express.Router()
 
-
-userRouter.post('/register', register)
-userRouter.post('/login', login)
-userRouter.post('/logout', logout)
-userRouter.post('/send-verify-otp', userAuth, sendVerifyOtp)
-userRouter.post('/verify-account', userAuth, verifyEmail)
-userRouter.post('/is-auth', userAuth, isAuthenticated)
+userRouter.get('/data', userAuth, getUserData)
 
 export default userRouter
