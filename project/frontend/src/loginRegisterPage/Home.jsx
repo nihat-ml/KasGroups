@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import bgImage from '../assets/bg_img.png'; 
 import Slider from '../components/Slider';
 import OurServices from '../components/OurServices';
+import QualitySection from '../components/QualitySection';
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Header/>
       <Slider/>
       <OurServices/>
+      <QualitySection/>
     </div>
   );
 };
