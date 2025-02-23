@@ -7,10 +7,10 @@ const AnimatedNumber = ({ target }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setValue((prev) => {
-        const next = prev + Math.ceil(target / 100); // Daha yavaş artım
+        const next = prev + Math.ceil(target / 100); 
         return next >= target ? target : next;
       });
-    }, 60); // Daha yavaş interval
+    }, 60); 
 
     return () => clearInterval(interval);
   }, [target]);

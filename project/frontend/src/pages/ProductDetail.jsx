@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaHeart, FaShoppingBasket } from "react-icons/fa";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { ClipLoader } from "react-spinners";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -15,20 +18,26 @@ const ProductDetail = () => {
         setProduct(data.product);
       } catch (error) {
         console.error("Məhsul tapılmadı:", error);
+      } finally {
+        setTimeout(() => setLoading(false), 1500);
       }
     };
     fetchProductDetail();
   }, [id]);
 
-  if (!product) {
-    return <p className="text-center text-lg font-semibold">Yüklənir...</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <ClipLoader color="#ffffff" size={60} />
+      </div>
+    );
   }
 
   return (
     <>
       <Navbar />
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-16">
-        {/* Məhsul Şəkli */}
+       
         <div className="relative">
           <img
             src={product.image}
@@ -45,7 +54,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Məhsul Məlumatları */}
         <div className="mt-6">
           <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
           <p className="text-xl text-gray-700 mt-2 font-semibold">Qiymət: <span className="text-blue-600">{product.price} AZN</span></p>
@@ -55,7 +63,6 @@ const ProductDetail = () => {
           <p className="mt-4 text-gray-600 text-justify leading-relaxed">{product.description}</p>
         </div>
 
-        {/* PDF Faylı */}
         {product.pdf && (
           <div className="mt-8">
             <h2 className="text-xl font-semibold mb-2">Məhsulun PDF Sənədi</h2>
@@ -73,6 +80,16 @@ const ProductDetail = () => {
             </div>
           </div>
         )}
+
+        
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => navigate("/")}
+            className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 transition-all font-semibold"
+          >
+            Back to Home
+          </button>
+        </div>
       </div>
     </>
   );

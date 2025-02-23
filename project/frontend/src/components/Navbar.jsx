@@ -71,7 +71,7 @@ const Navbar = () => {
       isScrolled ? 'bg-white dark:bg-gray-900 shadow-md' : 'bg-transparent'
     }`}>
       
-      {/* Logo with onClick to navigate to home */}
+      
       <button onClick={() => navigate("/")} className="focus:outline-none">
         <img src={assets.kaslogo1} alt="Logo" className='w-10 sm:w-14' />
       </button>
@@ -86,7 +86,7 @@ const Navbar = () => {
             <FaShoppingBasket className='w-6 h-6 text-blue-500' />
           </button>
 
-          {/* Dark Mode Button */}
+         
           <button
             onClick={toggleDarkMode}
             className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-500 dark:border-gray-300 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white transition-all"
