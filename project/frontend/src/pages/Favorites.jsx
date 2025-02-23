@@ -6,10 +6,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const FavoritesPage = () => {
-  const { favorites, removeFromFavorites } = useFavorites(); // favorites state-ni import edirik
+  const { favorites, removeFromFavorites } = useFavorites(); 
   const navigate = useNavigate();
 
-  // Səhifə render edilərkən favoritlər göstərilir və istifadəçi məhsulu çıxara bilər
+
   return (
     <>
       <Navbar />
@@ -25,7 +25,7 @@ const FavoritesPage = () => {
                 <div
                   key={product._id}
                   className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-all cursor-pointer relative group"
-                  onClick={() => navigate(`/product/${product._id}`)} // Məhsula keçid edirik
+                  onClick={() => navigate(`/product/${product._id}`)} 
                 >
                   <div className="absolute top-0 left-0 bg-black text-white text-xs font-bold px-2 py-1 rounded-br-md z-10">
                     {product.stock > 0 ? "In Stock" : "Out of Stock"}
@@ -33,7 +33,7 @@ const FavoritesPage = () => {
 
                   <div className="w-full h-56 overflow-hidden rounded-md relative">
                     <img
-                      src={product.image || "http://localhost:4000/uploads/default-image.jpg"}  // Default image əlavə edilir
+                      src={product.image || "http://localhost:4000/uploads/default-image.jpg"}  
                       alt={product.name}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform"
                     />
@@ -47,8 +47,8 @@ const FavoritesPage = () => {
                   <div className="flex justify-between items-center mt-4">
                     <button
                       onClick={(e) => {
-                        e.stopPropagation();  // Eventin daha yuxarıya yayılmasının qarşısını alırıq
-                        removeFromFavorites(product._id);  // Favorite-dən silirik
+                        e.stopPropagation();  
+                        removeFromFavorites(product._id);  
                       }}
                       className="text-red-500 hover:text-red-700 transition-colors"
                     >

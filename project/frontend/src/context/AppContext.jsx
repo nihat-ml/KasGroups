@@ -11,7 +11,7 @@ export const AppContextProvider = (props) => {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  // LocalStorage-dan istifadəçinin giriş məlumatlarını oxumaq
+  
   const loadUserDataFromLocalStorage = () => {
     const storedIsLoggedin = localStorage.getItem("isLoggedin");
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
@@ -22,7 +22,7 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  // Auth məlumatlarını əldə etmək
+ 
   const getAuthState = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/auth/is-auth");
@@ -35,13 +35,13 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  // İstifadəçi məlumatlarını serverdən əldə etmək
+ 
   const getUserData = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/user/data");
       if (data.success) {
         setUserData(data.userData);
-        // User data-ı localStorage-da saxlamaq
+        
         localStorage.setItem("userData", JSON.stringify(data.userData));
       } else {
         toast.error(data.message);
@@ -52,16 +52,16 @@ export const AppContextProvider = (props) => {
   };
 
   useEffect(() => {
-    loadUserDataFromLocalStorage(); // Səhifə yükləndikdə localStorage-dan istifadəçi məlumatlarını yükləyirik
+    loadUserDataFromLocalStorage(); 
     if (!isLoggedin) {
-      getAuthState(); // Auth məlumatlarını yoxlamaq
+      getAuthState(); 
     }
   }, []);
 
-  // Giriş state-in dəyişməsi
+
   useEffect(() => {
     if (isLoggedin && userData) {
-      // localStorage-da isLoggedin məlumatını saxlamaq
+      
       localStorage.setItem("isLoggedin", "true");
     } else {
       localStorage.removeItem("isLoggedin");
