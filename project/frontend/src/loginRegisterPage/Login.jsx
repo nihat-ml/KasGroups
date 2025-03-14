@@ -43,6 +43,7 @@ const Login = () => {
                 setIsLoggedin(true)
                 getUserData()
                 navigate("/")
+                localStorage.setItem("email", email)
             }else{
                 toast.error(data.message)
             }

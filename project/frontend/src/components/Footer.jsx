@@ -30,7 +30,7 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4 text-center md:text-left">Socials</h3>
           <ul className="flex justify-center md:justify-start gap-6 text-lg">
             <li>
-              <a href="https://facebook.com" target="_blank" className="hover:text-gray-400 transition">
+              <a href="https://www.facebook.com/cambalkon013" target="_blank" className="hover:text-gray-400 transition">
                 <FaFacebook />
               </a>
             </li>
