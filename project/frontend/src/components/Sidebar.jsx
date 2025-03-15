@@ -26,12 +26,7 @@ const Sidebar = () => {
           </li>
 
     
-          <li className="mb-4">
-            <Link to="/admin/users" className="flex items-center text-lg hover:text-blue-400">
-              <FaUsers className="mr-3 text-xl" />
-              Users
-            </Link>
-          </li>
+          
         </ul>
       </nav>
     </div>

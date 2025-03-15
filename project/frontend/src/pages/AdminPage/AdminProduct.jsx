@@ -17,11 +17,11 @@ const Modal = ({ product, onClose, onSave }) => {
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
-      name: Yup.string().required("Product name is required"),
-      category: Yup.string().required("Category is required"),
-      price: Yup.number().required("Price is required").positive("Price must be positive"),
-      stock: Yup.number().required("Stock is required").min(0, "Stock cannot be negative"),
-      description: Yup.string().required("Description is required"), 
+      name: Yup.string(),
+      category: Yup.string(),
+      price: Yup.number().positive("Price must be positive"),
+      stock: Yup.number().min(0, "Stock cannot be negative"),
+      description: Yup.string(), 
     }),
     onSubmit: (values) => {
       onSave(values);

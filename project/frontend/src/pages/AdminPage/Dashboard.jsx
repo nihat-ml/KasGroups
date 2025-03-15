@@ -50,12 +50,7 @@ const DashBoard = () => {
           >
             View Products
           </Link>
-          <Link
-            to="/admin/users"
-            className="inline-block bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-all"
-          >
-            View Users
-          </Link>
+         
         </div>
       </div>
     </div>
