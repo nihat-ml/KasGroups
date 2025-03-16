@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaHeart, FaShoppingBasket } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -110,80 +110,11 @@ const Product = () => {
       );
     }
 
-    if (sortOrder === "asc") {
-      filtered.sort((a, b) => {
-        const priceA = parseFloat(a.price);
-        const priceB = parseFloat(b.price);
-        return priceA - priceB;
-      });
-    } else if (sortOrder === "desc") {
-      filtered.sort((a, b) => {
-        const priceA = parseFloat(a.price);
-        const priceB = parseFloat(b.price);
-        return priceB - priceA;
-      });
-    }
 
     setFilteredProducts(filtered);
   }, [searchQuery, selectedCategory, products, sortOrder]);
 
   const categories = ["All", ...new Set(products.map((product) => product.category))];
-
-  async function HandleAddBasket(product) {
-    const email = localStorage.getItem("email");
-    try {
-      if (!email) {
-        notify("Please log in to add to basket!", "error");
-      navigate("/login");
-        return;
-      }
-
-      const basketResponse = await axios.get(`http://localhost:4000/api/basket/${email}`);
-      const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
-
-      const basketItem = basketItems.find(item => item.name === product.name);
-
-      if (basketItem) {
-        const updatedProduct = {
-          ...product,
-          email,
-          totalPrice: basketItem.totalPrice + product.price
-        };
-
-        await axios.post("http://localhost:4000/api/basket/add", updatedProduct);
-      } else {
-        const newProduct = {
-          ...product,
-          email,
-          count: 1,
-          totalPrice: product.price
-        };
-
-        await axios.post("http://localhost:4000/api/basket/add", newProduct);
-      }
-
-      await updateTotalBasketPrice(basketItems, product.price);
-    } catch (err) {
-      console.error("Error handling basket:", err);
-    }
-  }
-
-  async function updateTotalBasketPrice(basketItems, newProductPrice) {
-    try {
-      if (!email) {
-        throw new Error("Email is required for updating the total basket price.");
-      }
-
-      const validBasketItems = Array.isArray(basketItems) ? basketItems : [];
-
-      const totalProductPrice = validBasketItems.reduce((acc, item) => acc + item.price * item.count, 0) + newProductPrice;
-
-      const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("http://localhost:4000/api/basket/add/totalprice", updatedTotalProduct);
-    } catch (err) {
-      console.error("Error updating total basket price:", err);
-    }
-  }
 
   return (
     <div className="p-6">
@@ -208,15 +139,7 @@ const Product = () => {
             </option>
           ))}
         </select>
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="all">Sort by Price</option>
-          <option value="asc">Price: Low to High</option>
-          <option value="desc">Price: High to Low</option>
-        </select>
+        
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -226,9 +149,6 @@ const Product = () => {
             className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-all cursor-pointer relative group"
             onClick={() => navigate(`/product/${product._id}`)}
           >
-            <div className="absolute top-0 left-0 bg-black text-white text-xs font-bold px-2 py-1 rounded-br-md z-10">
-              {product.stock > 0 ? "In Stock" : "Out of Stock"}
-            </div>
 
             <div className="w-full h-56 overflow-hidden rounded-md relative">
               <img
@@ -240,11 +160,9 @@ const Product = () => {
 
             <div className="mt-4">
               <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
-              <p className="text-gray-600 mt-1">{product.price} AZN</p>
+              
             </div>
-
-            <div className="flex justify-between items-center mt-4">
-              <button
+            <button
                 className={favorites.some((f) => f._id === product._id) ? "text-red-700 hover:text-red-800" : "text-gray-500 hover:text-red-700"}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -253,16 +171,7 @@ const Product = () => {
               >
                 <FaHeart className="w-6 h-6 transition-colors" />
               </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  HandleAddBasket(product);
-                }}
-                className="text-gray-500 hover:text-blue-700 transition-colors"
-              >
-                <FaShoppingBasket className="w-6 h-6" />
-              </button>
-            </div>
+
           </div>
         ))}
       </div>

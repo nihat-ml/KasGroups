@@ -9,8 +9,6 @@ const Modal = ({ product, onClose, onSave }) => {
     initialValues: {
       name: product?.name || "",
       category: product?.category || "",
-      price: product?.price || "",
-      stock: product?.stock || "",
       image: product?.image || "", 
       pdf: product?.pdf || "",     
       description: product?.description || "", 
@@ -19,8 +17,6 @@ const Modal = ({ product, onClose, onSave }) => {
     validationSchema: Yup.object({
       name: Yup.string(),
       category: Yup.string(),
-      price: Yup.number().positive("Price must be positive"),
-      stock: Yup.number().min(0, "Stock cannot be negative"),
       description: Yup.string(), 
     }),
     onSubmit: (values) => {
@@ -34,11 +30,10 @@ const Modal = ({ product, onClose, onSave }) => {
       <div className="bg-white p-4 rounded-lg shadow-lg w-80 overflow-y-auto max-h-[90vh]">
         <h3 className="text-xl font-semibold mb-4">{product ? "Edit Product" : "Add Product"}</h3>
         <form onSubmit={formik.handleSubmit}>
-          {["name", "category", "price", "stock"].map((field) => ( 
+          {["name", "category"].map((field) => ( 
             <div className="mb-4" key={field}>
               <label className="block text-gray-700 capitalize">{field}</label>
               <input
-                type={field === "price" || field === "stock" ? "number" : "text"}
                 name={field}
                 className="mt-2 px-4 py-2 w-full border border-gray-300 rounded-lg"
                 value={formik.values[field]}
@@ -149,8 +144,6 @@ const AdminProduct = () => {
       const formData = new FormData();
       formData.append("name", product.name);
       formData.append("category", product.category);
-      formData.append("price", product.price);
-      formData.append("stock", product.stock);
       formData.append("description", product.description);
   
       if (product.image instanceof File) {
@@ -204,7 +197,7 @@ const AdminProduct = () => {
           <table className="min-w-full bg-white shadow-md rounded-lg">
             <thead className="bg-gray-100">
               <tr>
-                {["Image", "Name", "Category", "Price", "Stock", "Description", "Actions", "PDF"].map((header) => (
+                {["Image", "Name", "Category", "Description", "Actions", "PDF"].map((header) => (
                   <th key={header} className="px-6 py-4 text-left text-sm font-semibold text-gray-700">{header}</th>
                 ))}
               </tr>
@@ -217,8 +210,6 @@ const AdminProduct = () => {
                   </td>
                   <td className="px-6 py-4">{product.name}</td>
                   <td className="px-6 py-4">{product.category}</td>
-                  <td className="px-6 py-4">{product.price} AZN</td>
-                  <td className="px-6 py-4">{product.stock}</td>
                   <td className="px-6 py-4">{truncateDescription(product.description, 20)}</td>
                   <td className="px-6 py-4 space-x-4">
                     <button className="text-blue-500" onClick={() => handleEdit(product)}>Edit</button>

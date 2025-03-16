@@ -41,7 +41,19 @@ const Navbar = () => {
       .then(res => setFavorites(res.data.favorites));
   }, [favorites]);
 
- 
+  useEffect(() => {
+    window.gtranslateSettings = {
+      default_language: "en",
+      native_language_names: true,
+      languages: ["en", "ru", "az"],
+      wrapper_selector: ".gtranslate_wrapper",
+    };
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.gtranslate.net/widgets/latest/float.js";
+    script.defer = true;
+    document.body.appendChild(script);
+  }, []);
 
   const sendVerificationOtp = async () => {
     try {
@@ -159,14 +171,9 @@ const Navbar = () => {
               </span>
             )}
           </button>
-          <button onClick={() => navigate("/basket")} className="hover:opacity-80 relative">
-            <FaShoppingBasket className='w-6 h-6 text-blue-500' />
-            {basket > 0 && (
-              <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1.5 py-0.5">
-                {basket}
-              </span>
-            )}
-          </button>
+          <div className="gtranslate_wrapper"></div>
+          
+         
 
           <div className='w-8 h-8 flex justify-center items-center rounded-full bg-black text-white relative group cursor-pointer'>
             {userData.name[0].toUpperCase()}
