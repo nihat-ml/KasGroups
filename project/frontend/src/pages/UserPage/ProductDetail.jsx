@@ -47,10 +47,8 @@ const ProductDetail = () => {
 
         <div className="mt-6">
           <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
-          <p className="text-xl text-gray-700 mt-2 font-semibold">Qiymət: <span className="text-blue-600">{product.price} AZN</span></p>
-          <p className={`text-lg mt-1 font-semibold ${product.stock > 0 ? "text-green-500" : "text-red-500"}`}>
-            Stok: {product.stock > 0 ? "Mövcuddur" : "Tükənib"}
-          </p>
+          
+          
           <p className="mt-4 text-gray-600 text-justify leading-relaxed">{product.description}</p>
         </div>
 

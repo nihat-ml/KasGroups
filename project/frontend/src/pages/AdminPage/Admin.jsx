@@ -27,7 +27,7 @@ const AdminLogin = () => {
     if (formData.username === "nihatML" && formData.password === "admin123") {
       toast.success("Admin logged in successfully!"); 
       setTimeout(() => {
-        navigate("/admin/dashboard"); 
+        navigate("/kasadmin123/dashboard"); 
       }, 2000); 
     } else {
       toast.error("Invalid username or password!"); 

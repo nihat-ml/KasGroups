@@ -8,7 +8,6 @@ import { ToastContainer } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 
 
-
 import DashBoard from './pages/AdminPage/DashBoard';
 import Users from './pages/AdminPage/Users';
 import Orders from './pages/AdminPage/Orders';
@@ -48,11 +47,11 @@ const App = () => {
         <Route path="/product/:id" element={<ProductDetail />} />
 
         <Route path='*' element={<NoPage />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/products" element={<AdminProduct />} />
-        <Route path="/admin/dashboard" element={<DashBoard />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="/admin/orders" element={<Orders />} />
+        <Route path="/kasadmin123" element={<Admin />} />
+        <Route path="/kasadmin123/products" element={<AdminProduct />} />
+        <Route path="/kasadmin123/dashboard" element={<DashBoard />} />
+        <Route path="/kasadmin123/users" element={<Users />} />
+        <Route path="/kasadmin123/orders" element={<Orders />} />
       </Routes>
     </div>
 

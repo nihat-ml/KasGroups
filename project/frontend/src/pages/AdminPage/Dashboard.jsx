@@ -45,7 +45,7 @@ const DashBoard = () => {
       
         <div className="mt-8">
           <Link
-            to="/admin/products"
+            to="/kasadmin123/products"
             className="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all mr-4"
           >
             View Products

@@ -11,7 +11,7 @@ const Sidebar = () => {
         <ul>
          
           <li className="mb-4">
-            <Link to="/admin/dashboard" className="flex items-center text-lg hover:text-blue-400">
+            <Link to="/kasadmin123/dashboard" className="flex items-center text-lg hover:text-blue-400">
               <FaTachometerAlt className="mr-3 text-xl" />
               Dashboard
             </Link>
@@ -19,7 +19,7 @@ const Sidebar = () => {
 
           
           <li className="mb-4">
-            <Link to="/admin/products" className="flex items-center text-lg hover:text-blue-400">
+            <Link to="/kasadmin123/products" className="flex items-center text-lg hover:text-blue-400">
               <FaBox className="mr-3 text-xl" />
               Products
             </Link>

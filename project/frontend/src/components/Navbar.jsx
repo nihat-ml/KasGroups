@@ -138,14 +138,6 @@ const Navbar = () => {
                       </span>
                     )}
                   </button>
-                  <button onClick={() => { navigate("/basket"); setIsMenuOpen(false); }} className="text-lg text-gray-800 dark:text-white flex items-center gap-2">
-                    Basket
-                    {basket > 0 && (
-                      <span className="bg-blue-500 text-white text-xs rounded-full px-1.5 py-0.5">
-                        {basket}
-                      </span>
-                    )}
-                  </button>
                   <button onClick={logout} className="text-lg text-gray-800 dark:text-white">Logout</button>
                 </>
               ) : (
