@@ -90,6 +90,7 @@ const Navbar = () => {
     <div className={`w-full fixed top-0 left-0 z-50 flex justify-between items-center p-4 sm:p-6 sm:px-24 transition-all duration-300 ${
       isScrolled ? 'bg-white dark:bg-gray-900 shadow-md' : 'bg-transparent'
     }`}>
+      <div className="gtranslate_wrapper"></div>
       <button onClick={() => navigate("/")} className="focus:outline-none">
         <img src={assets.kaslogo1} alt="Logo" className='w-10 sm:w-14' />
       </button>
@@ -164,7 +165,7 @@ const Navbar = () => {
               </span>
             )}
           </button>
-          <div className="gtranslate_wrapper"></div>
+          
           
          
 
