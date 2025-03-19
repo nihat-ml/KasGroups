@@ -29,16 +29,13 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowed_origins.split(",").includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }));
+const cors = require('cors');
+const corsOptions ={
+    origin:'https://kas-groups-ee4v.vercel.app', 
+    credentials:true,
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get('/', (req, res) => res.send('Api Working'));
