@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './LoginRegisterPage/Home';
+
 
 import EmailVerify from './LoginRegisterPage/EmailVerify';
 import ResetPassword from './LoginRegisterPage/ResetPassword';
@@ -21,6 +21,7 @@ import Admin from './pages/AdminPage/Admin';
 import AdminProduct from './pages/AdminPage/AdminProduct';
 import Login from './loginRegisterPage/Login';
 import NoPage from './pages/NoPage';
+import Home from './LoginRegisterPage/Home';
 
 const App = () => {
   return (
