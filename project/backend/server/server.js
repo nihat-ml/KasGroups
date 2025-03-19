@@ -22,6 +22,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 4000;
+const allowed_origins = process.env.ALLOWED_ORIGINS || "https://kas-groups-ee4v.vercel.app"
 connectDB();
 
 
