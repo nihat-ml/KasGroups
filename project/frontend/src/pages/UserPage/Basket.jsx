@@ -12,8 +12,8 @@ const Basket = () => {
   const navigate = useNavigate();
 
   async function GetAllBasket() {
-    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
-    const basketTotalPrice = await axios.get(`https://kasgroups-1.onrender.com/api/basket/totalprice/${email}`);
+    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`,{withCredentials: true});
+    const basketTotalPrice = await axios.get(`https://kasgroups-1.onrender.com/api/basket/totalprice/${email}`,{withCredentials: true});
 
     setBasket(basketResponse.data.basket);
     setTotalPrice(basketTotalPrice.data.basketPrice[0]?.productTotalPrice || 0);
@@ -30,7 +30,7 @@ const Basket = () => {
         return;
       }
 
-      const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
+      const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`,{withCredentials: true});
       const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
 
       const basketItem = basketItems.find(item => item.name === product.name);
@@ -42,7 +42,7 @@ const Basket = () => {
           totalPrice: basketItem.totalPrice + product.price
         };
 
-        await axios.post("https://kasgroups-1.onrender.com/api/basket/add", updatedProduct);
+        await axios.post("https://kasgroups-1.onrender.com/api/basket/add",{withCredentials: true}, updatedProduct);
       } else {
         const newProduct = {
           ...product,
@@ -51,7 +51,7 @@ const Basket = () => {
           totalPrice: product.price
         };
 
-        await axios.post("https://kasgroups-1.onrender.com/api/basket/add", newProduct);
+        await axios.post("https://kasgroups-1.onrender.com/api/basket/add",{withCredentials: true}, newProduct);
       }
 
       await updateTotalBasketPrice(basketItems, product.price);
@@ -71,7 +71,7 @@ const Basket = () => {
       const totalProductPrice = validBasketItems.reduce((acc, item) => acc + item.price * item.count, 0) + newProductPrice;
 
       const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice", updatedTotalProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice",{withCredentials: true}, updatedTotalProduct);
     } catch (err) {
       console.error("Error updating total basket price:", err);
     }
@@ -84,7 +84,7 @@ const Basket = () => {
         return;
       }
 
-      const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
+      const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`,{withCredentials: true});
       const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
 
       const newProduct = {
@@ -93,7 +93,7 @@ const Basket = () => {
         price: product.price
       };
 
-      await axios.post("https://kasgroups-1.onrender.com/api/basket/removecount", newProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/removecount",{withCredentials: true}, newProduct);
 
       await updateTotalBasketPriceDecrease(basketItems, product.count, product.price);
     } catch (err) {
@@ -116,7 +116,7 @@ const Basket = () => {
       );
 
       const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice", updatedTotalProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice",{withCredentials: true}, updatedTotalProduct);
     } catch (err) {
       console.error("Error updating total basket price:", err);
     }
@@ -139,17 +139,17 @@ const Basket = () => {
 
 
       const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice", updatedTotalProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice",{withCredentials: true}, updatedTotalProduct);
     } catch (err) {
       console.error("Error updating total basket price:", err);
     }
   }
 
   async function DeleteBasket(product) {
-    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
+    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`,{withCredentials: true});
     const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
 
-    axios.delete(`https://kasgroups-1.onrender.com/api/basket/${product._id}`);
+    axios.delete(`https://kasgroups-1.onrender.com/api/basket/${product._id}`,{withCredentials: true});
 
     await updateTotalBasketPriceReset(basketItems, product.count, product.price);
   }

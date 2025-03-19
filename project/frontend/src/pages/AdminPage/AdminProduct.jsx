@@ -104,7 +104,7 @@ const AdminProduct = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("https://kasgroups-1.onrender.com/api/products");
+        const response = await axios.get("https://kasgroups-1.onrender.com/api/products",{withCredentials: true});
         setProducts(response.data.products || []);
       } catch (error) {
         console.error("Failed to load products:", error);
@@ -117,7 +117,7 @@ const AdminProduct = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://kasgroups-1.onrender.com/api/products/${id}`);
+      await axios.delete(`https://kasgroups-1.onrender.com/api/products/${id}`,{withCredentials: true});
       setProducts(products.filter((product) => product._id !== id));
     } catch (error) {
       console.error("Failed to delete product:", error);
@@ -156,7 +156,7 @@ const AdminProduct = () => {
   
       let response;
       if (editingProduct) {
-        response = await axios.put(`https://kasgroups-1.onrender.com/api/products/${editingProduct._id}`, formData, {
+        response = await axios.put(`https://kasgroups-1.onrender.com/api/products/${editingProduct._id}`,{withCredentials: true}, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
   
@@ -166,7 +166,7 @@ const AdminProduct = () => {
             : p
         ));
       } else {
-        response = await axios.post("https://kasgroups-1.onrender.com/api/products", formData, {
+        response = await axios.post("https://kasgroups-1.onrender.com/api/products",{withCredentials: true}, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
   

@@ -18,7 +18,7 @@ const Navbar = () => {
   const [basket1, setBasket1] = useState([]);
 
   async function GetAllBasket() {
-    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
+    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`,{withCredentials: true});
     const totalCount = basketResponse.data.basket.reduce((acc, item) => acc + item.count, 0);
     setBasket(totalCount); 
     setBasket1(basketResponse.data.basket);
@@ -37,7 +37,8 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`)
+    axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`,{withCredentials: true})
+    
       .then(res => setFavorites(res.data.favorites));
   }, [favorites]);
 
@@ -58,7 +59,7 @@ const Navbar = () => {
   const sendVerificationOtp = async () => {
     try {
       axios.defaults.withCredentials = true;
-      const { data } = await axios.post(backendUrl + "/api/auth/send-verify-otp");
+      const { data } = await axios.post(backendUrl + "/api/auth/send-verify-otp",{withCredentials: true});
       if (data.success) {
         navigate("/email-verify");
         toast.success(data.message);
@@ -73,7 +74,7 @@ const Navbar = () => {
   const logout = async () => {
     try {
       axios.defaults.withCredentials = true;
-      const { data } = await axios.post(backendUrl + "/api/auth/logout");
+      const { data } = await axios.post(backendUrl + "/api/auth/logout",{withCredentials: true});
       if (data.success) {
         localStorage.removeItem("email");
         setIsLoggedin(false);

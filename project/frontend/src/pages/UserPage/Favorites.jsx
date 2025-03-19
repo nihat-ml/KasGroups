@@ -11,14 +11,14 @@ const FavoritesPage = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`)
+    axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`,{withCredentials: true})
       .then(res => setFavorites(res.data.favorites))
       .catch(error => console.error("Failed to fetch favorites:", error));
   }, [favorites]);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://kasgroups-1.onrender.com/api/favorites/${id}`);
+      await axios.delete(`https://kasgroups-1.onrender.com/api/favorites/${id}`,{withCredentials: true});
       setFavorites(favorites.filter(product => product._id !== id));
       alert("Product deleted successfully!");
     } catch (error) {

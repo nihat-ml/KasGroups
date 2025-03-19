@@ -41,7 +41,7 @@ const Product = () => {
 
   useEffect(() => {
     if (email) {
-      axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`)
+      axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`,{withCredentials: true})
         .then(res => {
           setFavorites(res.data.favorites || []);
         })
@@ -55,7 +55,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get("https://kasgroups-1.onrender.com/api/products");
+        const { data } = await axios.get("https://kasgroups-1.onrender.com/api/products",{withCredentials: true});
         setProducts(data.products);
       } catch (error) {
         console.error("Failed to load products:", error);
@@ -77,7 +77,7 @@ const Product = () => {
       if (favorite) {
         notify("This product is already in your favorites.", "error");
       } else {
-        await axios.post("https://kasgroups-1.onrender.com/api/favorites", {
+        await axios.post("https://kasgroups-1.onrender.com/api/favorites",{withCredentials: true}, {
           productId: product._id,
           name: product.name,
           price: product.price,
