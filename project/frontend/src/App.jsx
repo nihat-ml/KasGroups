@@ -1,27 +1,29 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import Home from "../src/loginRegisterPage/Home"
+import Login from "../src/loginRegisterPage/Login"
+import EmailVerify from "../src/loginRegisterPage/EmailVerify"
+import ResetPassword from "../src/loginRegisterPage/ResetPassword"
 
-import EmailVerify from './LoginRegisterPage/EmailVerify';
-import ResetPassword from './LoginRegisterPage/ResetPassword';
+
 import { ToastContainer } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
-
-
-import DashBoard from './pages/AdminPage/DashBoard';
-import Users from './pages/AdminPage/Users';
-import Orders from './pages/AdminPage/Orders';
-import FavoritesPage from './pages/UserPage/Favorites';
-import BasketPage from './pages/UserPage/Basket';
-import ProductDetail from './pages/UserPage/ProductDetail';
+import FavoritesPage from '../src/pages/UserPage/Favorites';
+import BasketPage from "../src/pages/UserPage/Basket"
+import About from "../src/pages/UserPage/About"
+import Contact from "../src/pages/UserPage/Contact"
 import Product from './components/Product';
-import About from './pages/UserPage/About';
-import Contact from './pages/UserPage/Contact';
-import Admin from './pages/AdminPage/Admin';
-import AdminProduct from './pages/AdminPage/AdminProduct';
-import Login from './loginRegisterPage/Login';
-import NoPage from './pages/NoPage';
-import Home from './LoginRegisterPage/Home';
+import ProductDetail from "../src/pages/UserPage/ProductDetail"
+import NoPage from "../src/pages/NoPage"
+import Admin from '../src/pages/AdminPage/Admin'
+import AdminProduct from "../src/pages/AdminPage/AdminProduct"
+import DashBoard from '../src/pages/AdminPage/Dashboard'
+import Users from "../src/pages/AdminPage/Users"
+
+
+
+
 
 const App = () => {
   return (
@@ -52,7 +54,7 @@ const App = () => {
         <Route path="/kasadmin123/products" element={<AdminProduct />} />
         <Route path="/kasadmin123/dashboard" element={<DashBoard />} />
         <Route path="/kasadmin123/users" element={<Users />} />
-        <Route path="/kasadmin123/orders" element={<Orders />} />
+       
       </Routes>
     </div>
 
