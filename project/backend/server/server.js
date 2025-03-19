@@ -29,6 +29,8 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
+app.set("trust proxy", 1);
+
 app.use(cors({
     origin: function (origin, callback) {
       if (!origin || allowed_origins.split(",").includes(origin)) {
