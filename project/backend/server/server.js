@@ -29,16 +29,13 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowed_origins.split(",").includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }));
+import cors from "cors";
+const corsOrigin ={
+    origin:'https://kasgroups-1.onrender.com',
+    credentials:true,            
+    optionSuccessStatus:200
+}
+app.use(cors(corsOrigin));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get('/', (req, res) => res.send('Api Working'));
