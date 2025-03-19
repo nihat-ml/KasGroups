@@ -29,7 +29,7 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: allowed_origins, credentials: true }));
+app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get('/', (req, res) => res.send('Api Working'));
