@@ -14,6 +14,8 @@ import adminRouter from "./routes/adminRoutes.js";
 import basketRoutes from "./routes/basketRoutes.js";
 
 
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -22,11 +24,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
 
-const allowedOrigins = "http://localhost:5173";
+
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(cors({ origin: process.env.ALLOWED_ORIGINS, credentials: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get('/', (req, res) => res.send('Api Working'));
