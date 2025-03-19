@@ -24,16 +24,16 @@ const services = [
 
 const OurServices = () => {
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Services</h2>
-        <div className="w-16 h-1 bg-blue-500 mx-auto mb-10"></div>
+    <section className="py-12 bg-white">
+      <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+        <div className="w-16 h-1 bg-blue-500 mx-auto mb-8"></div>
 
-        <div className="grid md:grid-cols-3 gap-8 px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer"
+              className="bg-white shadow-md rounded-xl overflow-hidden cursor-pointer transform transition duration-300 ease-in-out"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -43,13 +43,13 @@ const OurServices = () => {
               <img
                 src={service.image}
                 alt={service.title}
-                className="w-full h-56 object-cover"
+                className="w-full h-52 sm:h-60 object-cover"
               />
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              <div className="p-5 sm:p-6 text-center">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
                   {service.title}
                 </h3>
-                <p className="text-gray-600">{service.description}</p>
+                <p className="text-gray-600 text-sm sm:text-base">{service.description}</p>
                 <div className="w-10 h-1 bg-gray-300 mx-auto mt-4"></div>
               </div>
             </motion.div>
