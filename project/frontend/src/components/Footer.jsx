@@ -5,17 +5,26 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   
-    const scrollToTop = () => {
-        const scrollDuration = 1000; 
-        const scrollStep = -window.scrollY / (scrollDuration / 15); 
-        
-        const scrollInterval = setInterval(() => {
-          if (window.scrollY <= 0) {
-            clearInterval(scrollInterval); 
-          }
-          window.scrollBy(0, scrollStep); 
-        }, 15); 
-      };
+  const scrollToTop = () => {
+    const startPosition = window.scrollY;
+    const duration = 1000;
+    const startTime = performance.now();
+  
+    const animateScroll = (currentTime) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / duration, 1); 
+  
+      window.scrollTo(0, startPosition * (1 - easeOutCubic(progress))); 
+  
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+  
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3); 
+    requestAnimationFrame(animateScroll);
+  };
+  
       
 
   return (
