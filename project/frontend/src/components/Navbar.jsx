@@ -87,14 +87,17 @@ const Navbar = () => {
   };
 
   return (
+    <>
+      <div className="gtranslate_wrapper"></div>
+
     <div className={`w-full fixed top-0 left-0 z-50 flex justify-between items-center p-4 sm:p-6 sm:px-24 transition-all duration-300 ${
       isScrolled ? 'bg-white dark:bg-gray-900 shadow-md' : 'bg-transparent'
     }`}>
-      <div className="gtranslate_wrapper"></div>
+      
       <button onClick={() => navigate("/")} className="focus:outline-none">
         <img src={assets.kaslogo1} alt="Logo" className='w-10 sm:w-14' />
       </button>
-
+    
       <div className="hidden sm:flex space-x-6 items-center">
         <Link to="/" className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-400 transition-all relative group">
           Home
@@ -116,7 +119,7 @@ const Navbar = () => {
       >
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
-
+    
       {isMenuOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
           <div className="w-2/3 sm:w-1/2 bg-white dark:bg-gray-900 shadow-lg h-full p-6 flex flex-col">
@@ -154,7 +157,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-
+  
       {userData ? (
         <div className='hidden sm:flex items-center space-x-4'>
           <button onClick={() => navigate("/favorites")} className="hover:opacity-80 relative">
@@ -193,7 +196,8 @@ const Navbar = () => {
           Login <img src={assets.arrow_icon} alt="Arrow Icon" />
         </button>
       )}
-    </div>
+      
+    </div></>
   );
 };
 
