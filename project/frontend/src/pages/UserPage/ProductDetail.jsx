@@ -14,7 +14,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductDetail = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:4000/api/products/${id}`);
+        const { data } = await axios.get(`https://kasgroups-1.onrender.com/api/products/${id}`);
         setProduct(data.product);
       } catch (error) {
         console.error("Məhsul tapılmadı:", error);

@@ -12,8 +12,8 @@ const Basket = () => {
   const navigate = useNavigate();
 
   async function GetAllBasket() {
-    const basketResponse = await axios.get(`http://localhost:4000/api/basket/${email}`);
-    const basketTotalPrice = await axios.get(`http://localhost:4000/api/basket/totalprice/${email}`);
+    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
+    const basketTotalPrice = await axios.get(`https://kasgroups-1.onrender.com/api/basket/totalprice/${email}`);
 
     setBasket(basketResponse.data.basket);
     setTotalPrice(basketTotalPrice.data.basketPrice[0]?.productTotalPrice || 0);

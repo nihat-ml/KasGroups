@@ -104,7 +104,7 @@ const AdminProduct = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/products");
+        const response = await axios.get("https://kasgroups-1.onrender.com/api/products");
         setProducts(response.data.products || []);
       } catch (error) {
         console.error("Failed to load products:", error);
@@ -117,7 +117,7 @@ const AdminProduct = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/products/${id}`);
+      await axios.delete(`https://kasgroups-1.onrender.com/api/products/${id}`);
       setProducts(products.filter((product) => product._id !== id));
     } catch (error) {
       console.error("Failed to delete product:", error);
@@ -135,7 +135,7 @@ const AdminProduct = () => {
   };
   const fixFileUrl = (file) => {
     if (!file) return "";
-    return file.startsWith("http") ? file : `http://localhost:4000/${file}`;
+    return file.startsWith("http") ? file : `https://kasgroups-1.onrender.com/${file}`;
   };
   
 
@@ -156,7 +156,7 @@ const AdminProduct = () => {
   
       let response;
       if (editingProduct) {
-        response = await axios.put(`http://localhost:4000/api/products/${editingProduct._id}`, formData, {
+        response = await axios.put(`https://kasgroups-1.onrender.com/api/products/${editingProduct._id}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
   
@@ -166,7 +166,7 @@ const AdminProduct = () => {
             : p
         ));
       } else {
-        response = await axios.post("http://localhost:4000/api/products", formData, {
+        response = await axios.post("https://kasgroups-1.onrender.com/api/products", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
   
