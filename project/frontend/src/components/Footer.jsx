@@ -6,7 +6,7 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 const Footer = () => {
   
     const scrollToTop = () => {
-        const scrollDuration = 2000; 
+        const scrollDuration = 1000; 
         const scrollStep = -window.scrollY / (scrollDuration / 15); 
         
         const scrollInterval = setInterval(() => {
@@ -71,7 +71,7 @@ const Footer = () => {
 
       <button
         onClick={scrollToTop}
-        className="fixed bottom-5 right-5 bg-gray-700 p-4 rounded-full shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-110"
+        className="fixed bottom-5 right-5 bg-gray-700 p-4 rounded-full shadow-lg hover:bg-gray-600 transition duration-100 transform hover:scale-110"
       >
         ⬆
       </button>
