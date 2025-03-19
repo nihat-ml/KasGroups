@@ -57,7 +57,7 @@ const FavoritesPage = () => {
 
                   <div className="w-full h-56 overflow-hidden rounded-md relative">
                     <img
-                      src={product.image || "http://localhost:4000/uploads/default-image.jpg"}
+                      src={product.image || "https://kasgroups-1.onrender.com/uploads/default-image.jpg"}
                       alt={product.name}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform"
                     />

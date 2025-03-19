@@ -18,7 +18,7 @@ const Navbar = () => {
   const [basket1, setBasket1] = useState([]);
 
   async function GetAllBasket() {
-    const basketResponse = await axios.get(`http://localhost:4000/api/basket/${email}`);
+    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
     const totalCount = basketResponse.data.basket.reduce((acc, item) => acc + item.count, 0);
     setBasket(totalCount); 
     setBasket1(basketResponse.data.basket);
@@ -37,7 +37,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/favorites/${email}`)
+    axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`)
       .then(res => setFavorites(res.data.favorites));
   }, [favorites]);
 

@@ -30,7 +30,7 @@ const Basket = () => {
         return;
       }
 
-      const basketResponse = await axios.get(`http://localhost:4000/api/basket/${email}`);
+      const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
       const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
 
       const basketItem = basketItems.find(item => item.name === product.name);
@@ -42,7 +42,7 @@ const Basket = () => {
           totalPrice: basketItem.totalPrice + product.price
         };
 
-        await axios.post("http://localhost:4000/api/basket/add", updatedProduct);
+        await axios.post("https://kasgroups-1.onrender.com/api/basket/add", updatedProduct);
       } else {
         const newProduct = {
           ...product,
@@ -51,7 +51,7 @@ const Basket = () => {
           totalPrice: product.price
         };
 
-        await axios.post("http://localhost:4000/api/basket/add", newProduct);
+        await axios.post("https://kasgroups-1.onrender.com/api/basket/add", newProduct);
       }
 
       await updateTotalBasketPrice(basketItems, product.price);
@@ -71,7 +71,7 @@ const Basket = () => {
       const totalProductPrice = validBasketItems.reduce((acc, item) => acc + item.price * item.count, 0) + newProductPrice;
 
       const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("http://localhost:4000/api/basket/add/totalprice", updatedTotalProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice", updatedTotalProduct);
     } catch (err) {
       console.error("Error updating total basket price:", err);
     }
@@ -84,7 +84,7 @@ const Basket = () => {
         return;
       }
 
-      const basketResponse = await axios.get(`http://localhost:4000/api/basket/${email}`);
+      const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
       const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
 
       const newProduct = {
@@ -93,7 +93,7 @@ const Basket = () => {
         price: product.price
       };
 
-      await axios.post("http://localhost:4000/api/basket/removecount", newProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/removecount", newProduct);
 
       await updateTotalBasketPriceDecrease(basketItems, product.count, product.price);
     } catch (err) {
@@ -116,7 +116,7 @@ const Basket = () => {
       );
 
       const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("http://localhost:4000/api/basket/add/totalprice", updatedTotalProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice", updatedTotalProduct);
     } catch (err) {
       console.error("Error updating total basket price:", err);
     }
@@ -139,17 +139,17 @@ const Basket = () => {
 
 
       const updatedTotalProduct = { email, productTotalPrice: totalProductPrice };
-      await axios.post("http://localhost:4000/api/basket/add/totalprice", updatedTotalProduct);
+      await axios.post("https://kasgroups-1.onrender.com/api/basket/add/totalprice", updatedTotalProduct);
     } catch (err) {
       console.error("Error updating total basket price:", err);
     }
   }
 
   async function DeleteBasket(product) {
-    const basketResponse = await axios.get(`http://localhost:4000/api/basket/${email}`);
+    const basketResponse = await axios.get(`https://kasgroups-1.onrender.com/api/basket/${email}`);
     const basketItems = Array.isArray(basketResponse.data.basket) ? basketResponse.data.basket : [];
 
-    axios.delete(`http://localhost:4000/api/basket/${product._id}`);
+    axios.delete(`https://kasgroups-1.onrender.com/api/basket/${product._id}`);
 
     await updateTotalBasketPriceReset(basketItems, product.count, product.price);
   }
