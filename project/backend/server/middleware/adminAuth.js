@@ -1,8 +1,8 @@
 const adminAuth = (req, res, next) => {
     const { username, password } = req.body;
 
-    const ADMIN_USERNAME = "nihatML";
-    const ADMIN_PASSWORD = "admin123";
+    const ADMIN_USERNAME = "Kasalmadmin";
+    const ADMIN_PASSWORD = "kas123";
 
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
         req.isAdmin = true;
