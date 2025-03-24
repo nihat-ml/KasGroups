@@ -24,7 +24,7 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.username === "nihatML" && formData.password === "admin123") {
+    if (formData.username === "Kasalmadmin" && formData.password === "kas123") {
       toast.success("Admin logged in successfully!"); 
       setTimeout(() => {
         navigate("/kasadmin123/dashboard"); 
