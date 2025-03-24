@@ -40,7 +40,8 @@ const Navbar = () => {
     axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`,{withCredentials: true})
     
       .then(res => setFavorites(res.data.favorites));
-  }, [favorites]);
+
+  }, [email]);
 
   useEffect(() => {
     window.gtranslateSettings = {
