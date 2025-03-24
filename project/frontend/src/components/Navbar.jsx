@@ -26,7 +26,7 @@ const Navbar = () => {
 
   useEffect(() => {
     GetAllBasket();
-  }, [basket1]);
+  }, [GetAllBasket]);
 
   useEffect(() => {
     const handleScroll = () => {
