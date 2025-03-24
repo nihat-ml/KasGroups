@@ -22,25 +22,25 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 4000;
-const allowed_origins = process.env.ALLOWED_ORIGINS || "https://kas-groups-ee4v.vercel.app"
-connectDB();
+const allowed_origins = "https://kas-groups.vercel.app";
 
+const corsOptions = {
+    origin: allowed_origins,
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+
+
+connectDB();
 
 
 app.use(express.json());
 app.use(cookieParser());
 app.set("trust proxy", 1);
 
-app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowed_origins.split(",").includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }));
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get('/', (req, res) => res.send('Api Working'));
