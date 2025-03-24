@@ -156,9 +156,12 @@ const AdminProduct = () => {
   
       let response;
       if (editingProduct) {
-        response = await axios.put(`https://kasgroups-1.onrender.com/api/products/${editingProduct._id}`,{withCredentials: true}, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        response = await axios.put(`https://kasgroups-1.onrender.com/api/products/${editingProduct._id}`, 
+          formData, { 
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" }
+          });
+        
   
         setProducts(products.map((p) =>
           p._id === editingProduct._id
@@ -166,9 +169,12 @@ const AdminProduct = () => {
             : p
         ));
       } else {
-        response = await axios.post("https://kasgroups-1.onrender.com/api/products",{withCredentials: true}, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        response = await axios.post("https://kasgroups-1.onrender.com/api/products", 
+          formData, { 
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" }
+          });
+        
   
         setProducts([...products, { ...response.data.product, image: fixFileUrl(response.data.product.image), pdf: fixFileUrl(response.data.product.pdf) }]);
       }
