@@ -22,7 +22,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 4000;
-const allowed_origins = "https://kas-groups.vercel.app";
+const allowed_origins = "https://api.kasalm.com";
 
 const corsOptions = {
     origin: allowed_origins,
