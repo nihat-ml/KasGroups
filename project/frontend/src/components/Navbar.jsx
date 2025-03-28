@@ -96,7 +96,7 @@ const Navbar = () => {
     }`}>
       
       <button onClick={() => navigate("/")} className="focus:outline-none">
-        <img src={assets.kaslogo1} alt="Logo" className='w-10 sm:w-14' />
+      <img src={assets.kaslogo1} alt="Logo" className='w-16 sm:w-20' />
       </button>
     
       <div className="hidden sm:flex space-x-6 items-center">
