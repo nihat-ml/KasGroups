@@ -44,7 +44,9 @@ const OurServices = () => {
                 <img
                   src={service.image}
                   alt={service.title}
+                  loading="lazy"
                   className="w-full h-52 sm:h-60 object-cover rounded-t-xl"
+                  style={{ imageRendering: "auto" }}
                 />
                 <div className="p-5 sm:p-6 text-center">
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
