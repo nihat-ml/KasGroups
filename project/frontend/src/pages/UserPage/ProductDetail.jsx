@@ -14,7 +14,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductDetail = async () => {
       try {
-        const { data } = await axios.get(`https://kasgroups-1.onrender.com/api/products/${id}`,{withCredentials: true});
+        const { data } = await axios.get(`https://kasgroups-1.onrender.com/api/products/${id}`, { withCredentials: true });
         setProduct(data.product);
       } catch (error) {
         console.error("Məhsul tapılmadı:", error);
@@ -47,8 +47,8 @@ const ProductDetail = () => {
 
         <div className="mt-6">
           <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
-          
-          
+
+
           <p className="mt-4 text-gray-600 text-justify leading-relaxed">{product.description}</p>
         </div>
 
@@ -61,11 +61,13 @@ const ProductDetail = () => {
             <div className="mt-4">
               <a
                 href={product.pdf}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all font-semibold"
               >
                 PDF-ə bax
               </a>
+
             </div>
           </div>
         )}
@@ -79,7 +81,7 @@ const ProductDetail = () => {
           </button>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
