@@ -33,24 +33,26 @@ const OurServices = () => {
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white shadow-md rounded-xl overflow-hidden cursor-pointer transform transition duration-300 ease-in-out"
+              className="bg-white rounded-xl overflow-hidden cursor-pointer"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.2)" }}
+              whileHover={{ scale: 1.05 }}
             >
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-52 sm:h-60 object-cover"
-              />
-              <div className="p-5 sm:p-6 text-center">
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-sm sm:text-base">{service.description}</p>
-                <div className="w-10 h-1 bg-gray-300 mx-auto mt-4"></div>
+              <div className="shadow-md hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-52 sm:h-60 object-cover rounded-t-xl"
+                />
+                <div className="p-5 sm:p-6 text-center">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">{service.description}</p>
+                  <div className="w-10 h-1 bg-gray-300 mx-auto mt-4"></div>
+                </div>
               </div>
             </motion.div>
           ))}
