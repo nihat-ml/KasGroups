@@ -21,7 +21,6 @@ export const register = async (req, res)=>{
         const user = new userModel({name, email, password: hashedPassword})
         await user.save()
         
-
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, { expiresIn: '7d' })
 
         res.cookie('token', token ,{
@@ -53,7 +52,7 @@ export const register = async (req, res)=>{
 export const login = async (req, res)=>{
     const {email, password} = req.body
 
-    if(!email, !password){
+    if(!email || !password){
         return res.json({success: false, message: "Email and password are required"})
     }
 
@@ -69,16 +68,18 @@ export const login = async (req, res)=>{
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, { expiresIn: '7d' })
 
-        res.cookie('token', token ,{
+        res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            path: '/'
         })
 
         return res.json({success:true})
 
     } catch (error) {
+        console.error("Login error:", error);
         res.json({success: false, message: error.message})
     }
 }

@@ -25,12 +25,13 @@ export const AppContextProvider = (props) => {
  
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/auth/is-auth",{withCredentials: true});
+      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {withCredentials: true});
       if (data.success) {
         setIsLoggedin(true);
         getUserData();
       }
     } catch (error) {
+      console.error("Auth state error:", error);
       toast.error(error.message);
     }
   };
@@ -38,15 +39,15 @@ export const AppContextProvider = (props) => {
  
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/user/data",{withCredentials: true});
+      const { data } = await axios.get(`${backendUrl}/api/user/data`, {withCredentials: true});
       if (data.success) {
         setUserData(data.userData);
-        
         localStorage.setItem("userData", JSON.stringify(data.userData));
       } else {
         toast.error(data.message);
       }
     } catch (error) {
+      console.error("User data error:", error);
       toast.error(error.message);
     }
   };
@@ -61,7 +62,6 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     if (isLoggedin && userData) {
-      
       localStorage.setItem("isLoggedin", "true");
     } else {
       localStorage.removeItem("isLoggedin");

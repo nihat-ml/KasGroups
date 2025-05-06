@@ -7,19 +7,19 @@ const userAuth = async (req, res, next)=>{
         return res.json({success: false, message: "Not Authorized. Login Again"})
     }
 
-    console.log(token);
+    console.log("Token from cookie:", token);
 
     try {
         const tokenDecode = jwt.verify(token, process.env.JWT_SECRET)
-        if(tokenDecode.id){
+        if(tokenDecode && tokenDecode.id){
             req.body.userId = tokenDecode.id;
+            next();
         }else{
             return res.json({success: false, message: "Not Authorized. Login Again"})
         }
-
-        next();
     } catch (error) {
-        return res.json({success: false, message: error.message})
+        console.error("Auth verification error:", error);
+        return res.json({success: false, message: "Token verification failed. Please login again."})
     }
 }
 

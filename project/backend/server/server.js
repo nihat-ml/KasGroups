@@ -22,10 +22,20 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 4000;
-const allowed_origins = "https://www.kasalm.com";
+const allowed_origins = [
+  "https://www.kasalm.com",
+  "http://localhost:3000",
+  "http://localhost:5173"
+];
 
 const corsOptions = {
-    origin: allowed_origins,
+    origin: function(origin, callback) {
+      if (!origin || allowed_origins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     optionsSuccessStatus: 200
 }
