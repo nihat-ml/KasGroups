@@ -5,12 +5,13 @@ import { createContext, useEffect, useState } from "react";
 export const AppContent = createContext();
 
 export const AppContextProvider = (props) => {
+  // Configure axios globally to handle cookies
   axios.defaults.withCredentials = true;
+  
   const backendUrl = "https://kasgroups-1.onrender.com";
   
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
-
   
   const loadUserDataFromLocalStorage = () => {
     const storedIsLoggedin = localStorage.getItem("isLoggedin");
@@ -21,11 +22,17 @@ export const AppContextProvider = (props) => {
       setUserData(storedUserData);
     }
   };
-
  
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {withCredentials: true});
+      console.log("Checking auth state...");
+      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
+        withCredentials: true,
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+      console.log("Auth state response:", data);
       if (data.success) {
         setIsLoggedin(true);
         getUserData();
@@ -35,11 +42,15 @@ export const AppContextProvider = (props) => {
       toast.error(error.message);
     }
   };
-
  
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/user/data`, {withCredentials: true});
+      const { data } = await axios.get(`${backendUrl}/api/user/data`, {
+        withCredentials: true,
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
       if (data.success) {
         setUserData(data.userData);
         localStorage.setItem("userData", JSON.stringify(data.userData));
@@ -58,7 +69,6 @@ export const AppContextProvider = (props) => {
       getAuthState(); 
     }
   }, []);
-
 
   useEffect(() => {
     if (isLoggedin && userData) {

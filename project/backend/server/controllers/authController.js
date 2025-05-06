@@ -66,15 +66,18 @@ export const login = async (req, res)=>{
             return res.json({success: false, message: 'Invalid password'})
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, { expiresIn: '7d' })
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET || 'fallback-secret-key-for-development', { expiresIn: '7d' })
 
+        console.log("Setting cookie with token:", token.substring(0, 10) + "...");
+
+        // Set cookie with development-friendly settings
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            secure: false, // Set to false for development
+            sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
             path: '/'
-        })
+        });
 
         return res.json({success:true})
 

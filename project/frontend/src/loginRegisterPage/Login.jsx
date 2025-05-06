@@ -9,25 +9,36 @@ const Login = () => {
 
     const {backendUrl, setIsLoggedin, getUserData} = useContext(AppContent)
 
-
     const [state, setState,] = useState('Sign Up')
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
     const onSubmitHandler = async (e) => {
         try {
             e.preventDefault()
+            setLoading(true)
 
+            // Set axios defaults
             axios.defaults.withCredentials = true
-
+            
             if (state === "Sign Up") {
-                const {data} = await axios.post(`${backendUrl}/api/auth/register`, {name, email, password}, {withCredentials: true})
+                console.log("Attempting to register:", email)
+                const {data} = await axios.post(`${backendUrl}/api/auth/register`, 
+                    {name, email, password}, 
+                    {
+                        withCredentials: true,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                )
 
                 if (data.success) {
+                    toast.success("Registration successful!")
                     setIsLoggedin(true)
                     getUserData()
                     navigate("/")
@@ -35,25 +46,36 @@ const Login = () => {
                     toast.error(data.message)
                 }
             } else {
-                const {data} = await axios.post(`${backendUrl}/api/auth/login`, { email, password }, { 
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json'
+                console.log("Attempting to login:", email)
+                const {data} = await axios.post(`${backendUrl}/api/auth/login`, 
+                    { email, password }, 
+                    { 
+                        withCredentials: true,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
                     }
-                })
+                )
+
+                console.log("Login response:", data)
 
                 if (data.success) {
+                    toast.success("Login successful!")
+                    // Check if cookies are set
+                    console.log("Cookies after login:", document.cookie)
                     setIsLoggedin(true)
                     getUserData()
-                    navigate("/")
                     localStorage.setItem("email", email)
+                    navigate("/")
                 } else {
                     toast.error(data.message)
                 }
             }
         } catch (error) {
-            console.error("Login error:", error)
+            console.error("Login/Register error:", error)
             toast.error(error.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -94,8 +116,10 @@ const Login = () => {
                     </div>
                     <p onClick={() => navigate('/reset-password')}
                        className='mb-4 text-indigo-500 cursor-pointer'>Forgot password?</p>
-                    <button
-                        className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium'>{state}</button>
+                    <button disabled={loading}
+                        className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium'>
+                        {loading ? "Processing..." : state}
+                    </button>
                 </form>
                 {state === 'Sign Up' ? (
                     <p className='text-gray-400 text-center text-xs mt-4 '>Already have an account?{" "}

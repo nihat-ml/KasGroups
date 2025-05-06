@@ -22,26 +22,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 4000;
-const allowed_origins = [
-  "https://www.kasalm.com",
-  "http://localhost:3000",
-  "http://localhost:5173"
-];
 
-const corsOptions = {
-    origin: function(origin, callback) {
-      if (!origin || allowed_origins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-    optionsSuccessStatus: 200
-}
-
-app.use(cors(corsOptions));
-
+// More permissive CORS settings for development
+app.use(cors({
+  origin: true, // Allow all origins in development
+  credentials: true,
+  exposedHeaders: ['set-cookie'],
+  optionsSuccessStatus: 200
+}));
 
 connectDB();
 
