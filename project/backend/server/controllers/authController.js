@@ -66,7 +66,10 @@ export const login = async (req, res)=>{
             return res.json({success: false, message: 'Invalid password'})
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET || 'fallback-secret-key-for-development', { expiresIn: '7d' })
+        // Use a fixed secret key for development
+        const JWT_SECRET = 'kasalm_fixed_jwt_secret_key_2023';
+        
+        const token = jwt.sign({id: user._id}, JWT_SECRET, { expiresIn: '7d' })
 
         console.log("Setting cookie with token:", token.substring(0, 10) + "...");
 
@@ -79,7 +82,11 @@ export const login = async (req, res)=>{
             path: '/'
         });
 
-        return res.json({success:true})
+        // Return token in response for client-side storage as backup
+        return res.json({
+            success: true, 
+            token: token
+        })
 
     } catch (error) {
         console.error("Login error:", error);

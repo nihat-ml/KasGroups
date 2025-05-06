@@ -63,6 +63,13 @@ const Login = () => {
                     toast.success("Login successful!")
                     // Check if cookies are set
                     console.log("Cookies after login:", document.cookie)
+                    
+                    // Store token in localStorage as a fallback mechanism
+                    if (data.token) {
+                        localStorage.setItem("auth_token", data.token);
+                        console.log("Token stored in localStorage");
+                    }
+                    
                     setIsLoggedin(true)
                     getUserData()
                     localStorage.setItem("email", email)

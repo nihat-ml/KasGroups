@@ -12,6 +12,21 @@ export const AppContextProvider = (props) => {
   
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
+
+  // Add token to request headers from localStorage if it exists
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("auth_token");
+    const headers = {
+      'Cache-Control': 'no-cache',
+      'Content-Type': 'application/json'
+    };
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    
+    return headers;
+  };
   
   const loadUserDataFromLocalStorage = () => {
     const storedIsLoggedin = localStorage.getItem("isLoggedin");
@@ -28,9 +43,7 @@ export const AppContextProvider = (props) => {
       console.log("Checking auth state...");
       const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
         withCredentials: true,
-        headers: {
-          'Cache-Control': 'no-cache'
-        }
+        headers: getAuthHeaders()
       });
       console.log("Auth state response:", data);
       if (data.success) {
@@ -47,9 +60,7 @@ export const AppContextProvider = (props) => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/user/data`, {
         withCredentials: true,
-        headers: {
-          'Cache-Control': 'no-cache'
-        }
+        headers: getAuthHeaders()
       });
       if (data.success) {
         setUserData(data.userData);
@@ -85,7 +96,8 @@ export const AppContextProvider = (props) => {
     setIsLoggedin,
     userData, 
     setUserData,
-    getUserData
+    getUserData,
+    getAuthHeaders
   };
 
   return (
