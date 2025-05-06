@@ -158,6 +158,17 @@ const Product = () => {
             className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-all cursor-pointer relative group"
             onClick={() => navigate(`/product/${product._id}`)}
           >
+            <button
+              className={`absolute top-2 right-2 z-10 p-2 rounded-full bg-white bg-opacity-80 shadow-sm ${
+                favorites.some((f) => f._id === product._id) ? "text-red-700 hover:text-red-800" : "text-gray-500 hover:text-red-700"
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToFavorites(product);
+              }}
+            >
+              <FaHeart className="w-5 h-5 transition-colors" />
+            </button>
 
             <div className="w-full h-56 overflow-hidden rounded-md relative">
               <img
@@ -169,18 +180,7 @@ const Product = () => {
 
             <div className="mt-4">
               <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
-              
             </div>
-            <button
-                className={favorites.some((f) => f._id === product._id) ? "text-red-700 hover:text-red-800" : "text-gray-500 hover:text-red-700"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleAddToFavorites(product);
-                }}
-              >
-                <FaHeart className="w-6 h-6 transition-colors" />
-              </button>
-
           </div>
         ))}
       </div>
