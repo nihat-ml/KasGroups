@@ -1,18 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { AppContent } from "../../context/AppContext";
 
 const FavoritesPage = () => {
   const email = localStorage.getItem("email");
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { getAuthHeaders } = useContext(AppContent);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -27,7 +25,7 @@ const FavoritesPage = () => {
           `https://kasgroups-1.onrender.com/api/favorites/${email}`,
           {
             withCredentials: true,
-            headers: getAuthHeaders ? getAuthHeaders() : { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' }
           }
         );
         setFavorites(data.favorites || []);
@@ -48,7 +46,7 @@ const FavoritesPage = () => {
         `https://kasgroups-1.onrender.com/api/favorites/${id}`,
         {
           withCredentials: true,
-          headers: getAuthHeaders ? getAuthHeaders() : { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' }
         }
       );
       setFavorites(favorites.filter(product => product._id !== id));

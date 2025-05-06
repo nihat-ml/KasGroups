@@ -92,7 +92,7 @@ const Product = () => {
           },
           {
             withCredentials: true,
-            headers: getAuthHeaders ? getAuthHeaders() : { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' }
           }
         );
         notify("Product added to favorites successfully!");
