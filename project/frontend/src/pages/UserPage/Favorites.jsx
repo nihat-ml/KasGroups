@@ -1,30 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { AppContent } from "../../context/AppContext";
 
 const FavoritesPage = () => {
   const email = localStorage.getItem("email");
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { getAuthHeaders } = useContext(AppContent);
 
   useEffect(() => {
-    axios.get(`https://kasgroups-1.onrender.com/api/favorites/${email}`,{withCredentials: true})
-      .then(res => setFavorites(res.data.favorites))
-      .catch(error => console.error("Failed to fetch favorites:", error));
-  }, [favorites]);
+    const fetchFavorites = async () => {
+      if (!email) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const { data } = await axios.get(
+          `https://kasgroups-1.onrender.com/api/favorites/${email}`,
+          {
+            withCredentials: true,
+            headers: getAuthHeaders ? getAuthHeaders() : { 'Content-Type': 'application/json' }
+          }
+        );
+        setFavorites(data.favorites || []);
+      } catch (error) {
+        console.error("Failed to fetch favorites:", error);
+        toast.error("Failed to load favorites");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFavorites();
+  }, [email]);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://kasgroups-1.onrender.com/api/favorites/${id}`,{withCredentials: true});
+      await axios.delete(
+        `https://kasgroups-1.onrender.com/api/favorites/${id}`,
+        {
+          withCredentials: true,
+          headers: getAuthHeaders ? getAuthHeaders() : { 'Content-Type': 'application/json' }
+        }
+      );
       setFavorites(favorites.filter(product => product._id !== id));
-      alert("Product deleted successfully!");
+      toast.success("Product removed from favorites!");
     } catch (error) {
       console.error("Failed to delete product:", error);
+      toast.error("Failed to remove product");
     }
   };
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex flex-col min-h-screen">
+          <div className="flex-grow container mx-auto p-6 flex flex-col items-center justify-center mt-16">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">Loading Favorites...</h2>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>

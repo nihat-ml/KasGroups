@@ -77,20 +77,29 @@ const Product = () => {
       if (favorite) {
         notify("This product is already in your favorites.", "error");
       } else {
-        await axios.post("https://kasgroups-1.onrender.com/api/favorites",{withCredentials: true}, {
-          productId: product._id,
-          name: product.name,
-          price: product.price,
-          description: product.description,
-          stock: product.stock,
-          category: product.category,
-          image: product.image,
-          pdf: product.pdf,
-          email,
-        });
+        await axios.post(
+          "https://kasgroups-1.onrender.com/api/favorites", 
+          {
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            stock: product.stock,
+            category: product.category,
+            image: product.image,
+            pdf: product.pdf,
+            email
+          },
+          {
+            withCredentials: true,
+            headers: getAuthHeaders ? getAuthHeaders() : { 'Content-Type': 'application/json' }
+          }
+        );
+        notify("Product added to favorites successfully!");
         setFavorites([...favorites, product]);
       }
     } catch (error) {
+      console.error("Favorites error:", error);
       notify("Failed to add favorite!", "error");
     }
   };
