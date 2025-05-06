@@ -96,9 +96,7 @@ const FavoritesPage = () => {
                   className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-all cursor-pointer relative group"
                   onClick={() => navigate(`/product/${product.productId}`)}
                 >
-                  <div className="absolute top-0 left-0 bg-black text-white text-xs font-bold px-2 py-1 rounded-br-md z-10">
-                    {product.stock > 0 ? "In Stock" : "Out of Stock"}
-                  </div>
+               
 
                   <div className="w-full h-56 overflow-hidden rounded-md relative">
                     <img
@@ -110,7 +108,7 @@ const FavoritesPage = () => {
 
                   <div className="mt-4">
                     <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
-                    <p className="text-gray-600 mt-1">{product.price} AZN</p>
+                    
                   </div>
 
                   <div className="flex justify-between items-center mt-4">
